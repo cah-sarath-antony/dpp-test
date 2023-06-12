@@ -25,17 +25,33 @@ pipeline {
     }
   }
     stages {
-        stage('Test') {
-            steps {
-                container('dpp-mx-jenkins-agent') {
-                sh """
-                    terraform --version
-                    aws --version
-                    helm version
-                    kubectl version
-                """
-                }
+      stage ('Use dir') {
+        agent any
+        steps {
+            script {
+              dir('my-scheduling/terraform/eks-cluster') {
+                sh 'ls'
+              }
             }
         }
+      }
+
+      // stage('Terraform Init') {
+      //     steps {
+      //       sh 'terraform init --backend-config=backends/dev.hcl'
+      //     }
+      // }
+
+      // stage('Terraform plan'){
+      //     steps{
+      //       sh 'terraform plan -out=tfplan -var-file="env/dev.tfvars.json" -auto-approve=false'
+      //     }
+      // }
+
+      // stage('Terraform apply'){
+      //     steps{
+      //       sh "terraform apply -auto-approve=true tfplan"
+      //     }
+      // }
     }
 }
