@@ -38,14 +38,14 @@ pipeline {
 
       stage('Terraform Init') {
           steps {
-            sh 'terraform init --backend-config=backends/dev.hcl'
+            // sh 'terraform init --backend-config=backends/dev.hcl'
             sh 'echo Terraform Init'
           }
       }
 
       stage('Terraform plan'){
           steps{
-            sh 'terraform plan -out=tfplan -var-file="env/dev.tfvars.json" -auto-approve=false'
+            // sh 'terraform plan -out=tfplan -var-file="env/dev.tfvars.json" -auto-approve=false'
             sh 'echo Terraform plan'
           }
       }
